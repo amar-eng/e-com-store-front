@@ -2,7 +2,7 @@ import getProduct from '@/actions/get-product';
 import getProducts from '@/actions/get-products';
 import Gallery from '@/components/gallery';
 import Container from '@/components/ui/container';
-import ProductList from '@/components/ui/product-list';
+import ProductList from '@/components/product-list';
 import Info from '@/components/info';
 
 interface ProductPageProps {

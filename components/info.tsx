@@ -29,7 +29,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
         <div className="flex items-center gap-x-4">
           <h3 className="font-light">Color:</h3>
           <div
-            className="h-6 w-6 rounded-full border border-gray-600"
+            className="h-6 w-6 rounded-full "
             style={{ backgroundColor: data?.color?.value }}
           ></div>
         </div>
