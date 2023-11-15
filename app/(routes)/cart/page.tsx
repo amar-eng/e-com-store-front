@@ -17,6 +17,7 @@ const CartPage = () => {
     return null;
   }
 
+  console.log('cart', cart);
   return (
     <div className="bg-white">
       <Container>
