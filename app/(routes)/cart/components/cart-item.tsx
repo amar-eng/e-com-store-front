@@ -4,18 +4,38 @@ import { X } from 'lucide-react';
 
 import IconButton from '@/components/ui/icon-button';
 import Currency from '@/components/ui/currency';
-import useCart from '@/hooks/use-cart';
-import { Product } from '@/types';
+import useCart, { CartOrder } from '@/hooks/use-cart';
+
+import { useState } from 'react';
 
 interface CartItemProps {
-  data: Product;
+  data: CartOrder;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
   const cart = useCart();
 
+  const [quantity, setQuantity] = useState(data.orderQuantity);
+
   const onRemove = () => {
     cart.removeItem(data.id);
+  };
+
+  console.log('dataaa:', data);
+  const handleQuantityChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newQuantity = parseInt(event.target.value, 10);
+    setQuantity(newQuantity);
+    cart.updateItemQuantity(data.id, newQuantity);
+  };
+
+  const generateQuantityOptions = (countInStock: number) => {
+    const options = [];
+    for (let i = 1; i <= countInStock; i++) {
+      options.push(i);
+    }
+    return options;
   };
 
   return (
@@ -44,6 +64,15 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
             </p>
           </div>
           <Currency value={data.price} />
+          <div className=" w-1/3 mt-3">
+            <select value={quantity} onChange={handleQuantityChange}>
+              {generateQuantityOptions(data.countInStock).map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </li>

@@ -20,6 +20,7 @@ const NavbarActions = () => {
     return null;
   }
 
+  console.log('cart::', cart);
   return (
     <div className="ml-auto flex items-center gap-x-4">
       <Button

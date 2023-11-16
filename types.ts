@@ -7,6 +7,10 @@ export interface Product {
   size: Size;
   color: Color;
   images: Image[];
+  brand: string;
+  longevity: string;
+  description: string;
+  countInStock: number;
 }
 
 export interface Image {

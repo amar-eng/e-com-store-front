@@ -2,11 +2,16 @@ import { create } from 'zustand';
 import { toast } from 'react-hot-toast';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-import { Product, CartProduct } from '@/types';
+import { Product } from '@/types';
+
+export interface CartOrder extends Product {
+  orderQuantity: number;
+}
 
 interface CartStore {
-  items: CartProduct[];
-  addItem: (data: Product, quantity: number) => void;
+  items: CartOrder[];
+  addItem: (data: CartOrder, quantity: number) => void;
+  updateItemQuantity: (productId: string, newQuantity: number) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
 }
@@ -15,36 +20,62 @@ const useCart = create(
   persist<CartStore>(
     (set, get) => ({
       items: [],
-      addItem: (data, quantity = 1) => {
-        const currentItems = get().items;
-        const existingItemIndex = currentItems.findIndex(
-          (item) => item.id === data.id
-        );
-
-        if (existingItemIndex > -1) {
-          let updatedItems = [...currentItems];
-          updatedItems[existingItemIndex].quantity += quantity;
-          set({ items: updatedItems });
-          toast.success('Quantity updated in cart.');
-        } else {
-          set({ items: [...currentItems, { ...data, quantity }] });
-          toast.success('Item added to cart.');
-        }
+      addItem: (data, quantity) => {
+        set((state) => {
+          const itemIndex = state.items.findIndex(
+            (item) => item.id === data.id
+          );
+          if (itemIndex !== -1) {
+            const item = state.items[itemIndex];
+            const newQuantity = item.orderQuantity + quantity;
+            if (newQuantity <= data.countInStock) {
+              state.items[itemIndex].orderQuantity = newQuantity;
+              toast.success(`Added ${quantity} to the existing product.`);
+            } else {
+              toast.error('Cannot add more. No more stock available.');
+            }
+          } else {
+            if (quantity <= data.countInStock) {
+              state.items.push({ ...data, orderQuantity: quantity });
+              toast.success('Item added to cart.');
+            } else {
+              toast.error('Cannot add more. No more stock available.');
+            }
+          }
+          return { items: [...state.items] };
+        });
+      },
+      updateItemQuantity: (productId, newQuantity) => {
+        set((state) => {
+          const itemIndex = state.items.findIndex(
+            (item) => item.id === productId
+          );
+          if (itemIndex !== -1) {
+            const item = state.items[itemIndex];
+            if (newQuantity <= item.countInStock && newQuantity > 0) {
+              state.items[itemIndex].orderQuantity = newQuantity;
+              toast.success(
+                `Quantity updated: you're buying ${newQuantity} ${item.name} .`
+              );
+            } else {
+              toast.error(
+                'Cannot update quantity. Invalid quantity or exceeds available stock.'
+              );
+            }
+          }
+          return { items: [...state.items] };
+        });
       },
       removeItem: (id) => {
-        let updatedItems = get()
-          .items.map((item) => {
-            if (item.id === id && item.quantity > 1) {
-              return { ...item, quantity: item.quantity - 1 };
-            }
-            return item;
-          })
-          .filter((item) => item.quantity > 0);
-
-        set({ items: updatedItems });
-        toast.success('Item updated in cart.');
+        set((state) => ({
+          items: state.items.filter((item) => item.id !== id),
+        }));
+        toast.success('Item removed from cart.');
       },
-      removeAll: () => set({ items: [] }),
+      removeAll: () => {
+        set({ items: [] });
+        toast.success('All items removed from cart.');
+      },
     }),
     {
       name: 'cart-storage',
