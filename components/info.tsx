@@ -3,10 +3,11 @@
 import { Product } from '@/types';
 import Currency from './ui/currency';
 import { ShoppingCart } from 'lucide-react';
-import { MouseEventHandler, useState } from 'react';
+import { useState } from 'react';
 import Button from './ui/button';
 import useCart, { CartOrder } from '@/hooks/use-cart';
 import QuantityCounter from './ui/quantity';
+import SeasonDisplay from './ui/season';
 
 interface InfoProps {
   data: Product;
@@ -18,49 +19,69 @@ const Info: React.FC<InfoProps> = ({ data }) => {
 
   const onAddToCart = () => {
     const cartItem: CartOrder = {
-      ...data, // Spread all properties of Product
-      orderQuantity: quantity, // Add the orderQuantity property
+      ...data,
+      orderQuantity: quantity,
     };
 
     addItem(cartItem, quantity);
   };
 
-  console.log(addItem);
+  console.log('data', data);
   return (
     <div className="">
-      <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
+      <p className="uppercase font-light text-orange-600">{data.brand}</p>
+      <div className="flex items-end">
+        <h1 className="text-3xl font-regular text-gray-900">{data.name}</h1>
+      </div>
 
       <div className="mt-3 flex items-end justify-between">
-        <p className="text-2xl text-gray-900">
+        <p className="text-1xl text-gray-900 ">
           <Currency value={data?.price} />
         </p>
       </div>
 
       <hr className="my-4" />
-      <div className="flex flex-col gap-y-6">
+      <div className="font-light">{data?.description}</div>
+      <p className="uppercase font-light text-orange-600 my-4 text-sm">
+        {data.color.name} - {data?.size?.name}
+      </p>
+      <hr className="my-4" />
+
+      <div className="flex flex-col gap-y-6 my-5">
         <div className="flex items-center gap-x-4">
-          <h3 className="font-light">Amount:</h3>
-          <div className="">{data?.size?.name}</div>
-        </div>
-        <div className="flex items-center gap-x-4">
-          <h3 className="font-light">Color:</h3>
-          <div
-            className="h-6 w-6 rounded-full "
-            style={{ backgroundColor: data?.color?.value }}
-          ></div>
+          <div className="flex ">
+            Longevity: <div className="font-light ml-2">{data?.longevity}</div>
+          </div>
+
+          <div className="flex ">
+            <SeasonDisplay season={data.season} />
+          </div>
         </div>
       </div>
-      <QuantityCounter
-        productId={data.id}
-        quantity={quantity}
-        onQuantityChange={setQuantity}
-      />
-      <div className="mt-10 flex items-center gap-x-3">
+      <div className="my-4">
+        {data?.countInStock < 5 ? (
+          <div className="font-light text-red-600">
+            Hurry Theres only {data.countInStock} left!
+          </div>
+        ) : (
+          <div className="font-light">
+            Count in stock is {data.countInStock}
+          </div>
+        )}
+      </div>
+
+      <div className="flex justify-between items-end ">
+        <QuantityCounter
+          productId={data.id}
+          quantity={quantity}
+          onQuantityChange={setQuantity}
+        />
+
         <Button
-          className="flex items-center gap-x-4 bg-orange-700"
+          className="flex items-center lg:gap-x-4 bg-orange-700 uppercase font-light text-sm"
           onClick={onAddToCart}
         >
-          Add to Cart <ShoppingCart />
+          Add to Cart <ShoppingCart strokeWidth="1" />
         </Button>
       </div>
     </div>

@@ -1,14 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { Expand, ShoppingCart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import Currency from '@/components/ui/currency';
 import IconButton from '@/components/ui/icon-button';
 import usePreviewModal from '@/hooks/use-preview-modal';
-import useCart from '@/hooks/use-cart';
+import useCart, { CartOrder } from '@/hooks/use-cart';
 import { Product } from '@/types';
 
 interface ProductCard {
@@ -17,8 +17,9 @@ interface ProductCard {
 
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
   const previewModal = usePreviewModal();
-  const cart = useCart();
+  const { addItem } = useCart();
   const router = useRouter();
+  const [quantity, setQuantity] = useState(1);
 
   const handleClick = () => {
     router.push(`/product/${data?.id}`);
@@ -32,8 +33,12 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
+    const cartItem: CartOrder = {
+      ...data, // Spread all properties of Product
+      orderQuantity: quantity, // Add the orderQuantity property
+    };
 
-    cart.addItem(data);
+    addItem(cartItem, quantity);
   };
 
   return (

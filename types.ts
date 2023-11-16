@@ -11,6 +11,7 @@ export interface Product {
   longevity: string;
   description: string;
   countInStock: number;
+  season: string;
 }
 
 export interface Image {

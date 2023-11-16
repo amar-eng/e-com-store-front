@@ -26,10 +26,20 @@ const QuantityCounter: React.FC<QuantityCounterProps> = ({
     }
   };
   return (
-    <div className="flex items-center">
-      <Button onClick={handleDecrement}>-</Button>
-      <div className="mx-2">{quantity}</div>
-      <Button onClick={handleIncrement}>+</Button>
+    <div className="flex items-center ">
+      <Button
+        onClick={handleDecrement}
+        className="bg-gray-200  text-gray-700  rounded-full px-3 py-1"
+      >
+        -
+      </Button>
+      <div className="mx-3 font-light">{quantity}</div>
+      <Button
+        onClick={handleIncrement}
+        className="bg-gray-200 text-gray-700  rounded-full px-3 py-1"
+      >
+        +
+      </Button>
     </div>
   );
 };

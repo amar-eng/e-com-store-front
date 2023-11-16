@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Raleway } from 'next/font/google';
+import { Lato } from 'next/font/google';
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
@@ -8,8 +8,8 @@ import './globals.css';
 import ModalProvider from '@/providers/modal-provider';
 import ToastProvider from '@/providers/toast-provider';
 
-const font = Raleway({
-  weight: ['300', '500', '400', '700', '600'],
+const font = Lato({
+  weight: ['100', '300', '400', '700', '900'],
   subsets: ['latin'],
 });
 
