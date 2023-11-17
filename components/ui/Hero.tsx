@@ -3,7 +3,11 @@
 import { useRouter } from 'next/navigation';
 import Button from './button';
 
-const Hero = ({ data }) => {
+interface HeroProps {
+  data: any;
+}
+
+const Hero: React.FC<HeroProps> = ({ data }) => {
   const backgroundImage = '/photos/herooo.png';
   console.log(data);
   const router = useRouter();
