@@ -12,7 +12,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   console.log(data);
   const router = useRouter();
 
-  const navigateToCategory = (id) => {
+  const navigateToCategory = (id: string) => {
     router.push(`/category/${id}`);
   };
   return (
@@ -39,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           </p>
           <div className="flex items-center justify-between lg:w-2/5">
             {data &&
-              data.map((cologne) => (
+              data.map((cologne: any) => (
                 <Button
                   className="bg-orange-600 font-extralight uppercase "
                   key={cologne.id}
