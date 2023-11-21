@@ -14,7 +14,7 @@ const font = Lato({
 });
 
 export const metadata: Metadata = {
-  title: 'Perfume Madison Plus',
+  title: 'Signature Perfume',
   description: 'Store Front for your e-com shop',
 };
 
