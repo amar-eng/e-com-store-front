@@ -8,7 +8,7 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
-  const backgroundImage = '/photos/herooo.png';
+  const backgroundImage = '/photos/hero4.png';
   console.log(data);
   const router = useRouter();
 
@@ -24,13 +24,13 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           backgroundPosition: 'right center',
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
-          backgroundColor: 'black',
+          backgroundColor: '#060b0f',
         }}
       >
         <div className="text-white mx-9 ">
-          <h1 className=" sm:text-5xl md:text-7xl  font-light uppercase md:w-4/5">
+          <h1 className=" sm:text-5xl md:text-7xl  font-light uppercase md:w-4/5 ">
             Leave A <br />
-            <span className="text-orange-600">Scent</span>-Sational <br />
+            <span className="text-goldenHour">Scent</span>-Sational <br />
             Impression
           </h1>
           <p className="font-extralight sm:text-3xl md:text-3xl md:w-3/5 space-y-1 my-7">
@@ -41,7 +41,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
             {data &&
               data.map((cologne: any) => (
                 <Button
-                  className="bg-orange-600 font-extralight uppercase "
+                  className="bg-goldenHour font-extralight uppercase "
                   key={cologne.id}
                   onClick={() => navigateToCategory(cologne.id)}
                 >

@@ -70,11 +70,9 @@ const useCart = create(
         set((state) => ({
           items: state.items.filter((item) => item.id !== id),
         }));
-        toast.success('Item removed from cart.');
       },
       removeAll: () => {
         set({ items: [] });
-        toast.success('All items removed from cart.');
       },
     }),
     {

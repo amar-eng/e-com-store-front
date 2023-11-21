@@ -30,12 +30,14 @@ const Summary = () => {
     return total + Number(item.price) * item.orderQuantity; // Multiply price by quantity
   }, 0);
 
+  console.log('items going to server', items);
   const onCheckout = async () => {
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
       { cartItems: items.map((item) => item) }
     );
 
+    removeAll();
     window.location = res.data.url;
   };
 
