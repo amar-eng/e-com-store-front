@@ -18,7 +18,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   return (
     <>
       <div
-        className="relative aspect-square md:aspect-[2.3/1] flex items-center"
+        className="relative aspect-square md:aspect-[2.0/1] flex items-center"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundPosition: 'right center',
