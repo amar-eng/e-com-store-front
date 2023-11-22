@@ -65,7 +65,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
           </div>
         ) : (
           <div className="font-light">
-            Count in stock is {data.countInStock}
+            Only {data.countInStock} of {data.name} left
           </div>
         )}
       </div>
