@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Baskervville } from 'next/font/google';
+import { Raleway } from 'next/font/google';
 
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
@@ -8,7 +8,7 @@ import './globals.css';
 import ModalProvider from '@/providers/modal-provider';
 import ToastProvider from '@/providers/toast-provider';
 
-const font = Baskervville({
+const font = Raleway({
   weight: ['400'],
   subsets: ['latin'],
 });
