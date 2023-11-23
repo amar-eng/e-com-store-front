@@ -14,7 +14,7 @@ const font = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: 'Signature Perfume',
+  title: 'Beyond Fragrances',
   description: 'Store Front for your e-com shop',
 };
 
