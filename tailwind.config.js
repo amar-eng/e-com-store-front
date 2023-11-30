@@ -18,8 +18,8 @@ module.exports = {
     extend: {
       colors: {
         border: 'hsl(var(--border))',
-        goldenHour: '#a68a77',
-        darkBlack: '#060b0f',
+        goldenHour: '#c6a987',
+        darkBlack: '#03071e',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',

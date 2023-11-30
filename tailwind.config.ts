@@ -14,7 +14,7 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        goldenHour: '#9fbac9',
+        goldenHour: '#eee8e8',
       },
     },
   },

@@ -1,52 +1,56 @@
 'use client';
 
+import { ChevronDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import Button from './button';
 
 interface HeroProps {
   data: any;
 }
 
 const Hero: React.FC<HeroProps> = ({ data }) => {
-  const backgroundImage = '/photos/hero4.png';
+  const backgroundImage = '/photos/herooo1.jpeg';
   console.log(data);
   const router = useRouter();
 
   const navigateToCategory = (id: string) => {
     router.push(`/category/${id}`);
   };
+
   return (
     <>
       <div
-        className="relative aspect-square md:aspect-[2.0/1] flex items-center"
+        className="relative aspect-square pt-9 md:aspect-[2.6/1] flex md:items-center"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundPosition: 'right center',
-          backgroundSize: 'contain',
+          backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          backgroundColor: '#060b0f',
+          backgroundColor: 'white',
         }}
       >
-        <div className="text-white mx-9 ">
-          <h1 className=" sm:text-5xl md:text-7xl  font-light uppercase md:w-4/5 ">
-            Leave A <br />
-            <span className="text-goldenHour">Scent</span>-Sational <br />
+        <div className="text-darkBlack  ">
+          <h1 className="text-3xl md:text-7xl font-light uppercase ml-16 md:ml-9">
+            Leave A
+            <br className="hidden md:block" />
+            <span className="text-goldenHour"> Scent</span>-Sational
+            <br className="hidden md:block" />
             Impression
           </h1>
-          <p className="font-extralight sm:text-3xl md:text-3xl md:w-3/5 space-y-1 my-7">
+
+          <p className="font-extralight text-base md:text-2xl ml-auto md:ml-9  mr-2 w-3/5  space-y-1 my-7">
             Explore our handpicked collection of designer colognes and let your
             scent tell your story.
           </p>
-          <div className="flex items-center justify-between lg:w-2/5">
+          <div className="flex items-center justify-between lg:w-2/4 mx-2 my-12 md:ml-9">
             {data &&
               data.map((cologne: any) => (
-                <Button
-                  className="bg-goldenHour font-extralight uppercase "
+                <button
+                  className="bg-goldenHour font-extralight w-auto rounded-full py-2 px-5 text-xs md:text-base  disabled:cursor-not-allowed disabled:opacity-50  hover:opacity-75 hover:text-black transition"
                   key={cologne.id}
                   onClick={() => navigateToCategory(cologne.id)}
                 >
-                  EXPLORE {cologne.name}
-                </Button>
+                  Shop {cologne.name}
+                </button>
               ))}
           </div>
         </div>
